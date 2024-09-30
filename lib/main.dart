@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart'; // Für den Dateipfad
 import 'package:whisky_collector/lib/widgets/add_whisky_popup.dart';
 import 'package:whisky_collector/lib/widgets/custom_bottom_navigation.dart';
-import 'package:whisky_collector/data/whisky.dart' as whisky_data; // Whisky-Modell importieren mit Alias
+import 'package:whisky_collector/data/whisky.dart'
+    as whisky_data; // Whisky-Modell importieren mit Alias
 import 'package:whisky_collector/lib/widgets/whisky_card.dart';
 import 'package:whisky_collector/profile_screen.dart';
 import 'package:whisky_collector/search_screen.dart';
@@ -78,7 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final file = await _localFile;
 
     // Konvertieren der Whisky-Liste in JSON
-    List<Map<String, dynamic>> whiskyJson = whiskies.map((w) => w.toJson()).toList();
+    List<Map<String, dynamic>> whiskyJson =
+        whiskies.map((w) => w.toJson()).toList();
     String jsonString = jsonEncode(whiskyJson);
 
     // Schreiben in die Datei
@@ -96,7 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // Dekodieren des JSON und Erstellung der Whisky-Objekte
       List<dynamic> jsonData = jsonDecode(contents);
       setState(() {
-        whiskies = jsonData.map((json) => whisky_data.Whisky.fromJson(json)).toList();
+        whiskies =
+            jsonData.map((json) => whisky_data.Whisky.fromJson(json)).toList();
       });
     } catch (e) {
       // Wenn die Datei nicht existiert oder ein Fehler auftritt
@@ -136,7 +139,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<String?> _saveImage(File imageFile) async {
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final imagePath = '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.png';
+      final imagePath =
+          '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.png';
       final File localImage = await imageFile.copy(imagePath);
       return localImage.path;
     } catch (e) {
@@ -173,7 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
   // Funktion zum Aktualisieren eines Whiskys
   void _updateWhisky(whisky_data.Whisky updatedWhisky) {
     setState(() {
-      final index = whiskies.indexWhere((whisky) => whisky.distillery == updatedWhisky.distillery);
+      final index = whiskies.indexWhere(
+          (whisky) => whisky.distillery == updatedWhisky.distillery);
       if (index != -1) {
         whiskies[index] = updatedWhisky;
       }
@@ -212,9 +217,16 @@ class _MyHomePageState extends State<MyHomePage> {
         updateWhisky: _updateWhisky,
         deleteWhisky: _deleteWhisky,
       );
+    } else if (_selectedIndex == 2) {
+      // Profilseite
+      return ProfileScreen(
+        whiskies: whiskies, // Übergeben der Whiskyliste an die Profilseite
+      );
     } else {
       // Weitere Seiten können hier hinzugefügt werden
-      return ProfileScreen();
+      return Center(
+        child: Text("Seite nicht gefunden"),
+      );
     }
   }
 
@@ -224,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (_selectedIndex == 1) {
       return 'Whisky Suche';
     } else {
-      return 'Weitere Inhalte';
+      return 'Profil';
     }
   }
 
