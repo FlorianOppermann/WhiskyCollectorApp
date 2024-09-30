@@ -4,7 +4,7 @@
             "outputFile": "de.florianoppermann.whiskycollector.app-mergeReleaseResources-24:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/florianoppermann/workspace/test_project/test_application/android/app/src/main/res/values-night/styles.xml",
+                    "source": "C:\\Users\\flori\\Desktop\\Flutter\\WhiskyCollectorApp\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
