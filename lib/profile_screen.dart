@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisky_collector/data/whisky.dart';
+import 'package:whisky_collector/lib/widgets/stat_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   final List<Whisky> whiskies;
@@ -47,30 +48,40 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          //algin text: left
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Deine Whisky Sammlung',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            Text('Anzahl der Whiskys: ${getTotalWhiskies()}'),
-            Text(
-                'Durchschnittsalter: ${getAverageAge().toStringAsFixed(1)} Jahre'),
-            Text(
-                'Durchschnittspreis: ${getAveragePrice().toStringAsFixed(2)} €'),
-            Text(
-                'Durchschnittliche Bewertung: ${getAverageRating().toStringAsFixed(1)} Sterne'),
-            Text(
-                'Gesamtwert der Sammlung: ${getTotalValue().toStringAsFixed(2)} €'),
-            SizedBox(height: 20),
-            Text('Weitere Statistiken kommen bald!'),
-          ],
+      appBar: AppBar(
+        title: const Text('Whisky Collection Dashboard'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  StatCard(
+                      title: 'Anzahl Whiskies',
+                      value: getTotalWhiskies().toString()),
+                  StatCard(
+                      title: 'Durchschnittsalter',
+                      value: '${getAverageAge().toStringAsFixed(1)}Jahre'),
+                  StatCard(
+                      title: 'Durchschnittspreis',
+                      value: '${getAveragePrice().toStringAsFixed(2)}€'),
+                  StatCard(
+                      title: 'Gesamtwert',
+                      value: '${getTotalValue().toStringAsFixed(2)}€'),
+                  StatCard(
+                      title: 'Durchschnitts- bewertung',
+                      value: '${getAverageRating().toStringAsFixed(1)} Sterne'),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
