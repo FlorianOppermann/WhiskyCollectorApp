@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: '17'
       - run: flutter pub get
       - run: flutter build appbundle
       - name: Upload Artifact
