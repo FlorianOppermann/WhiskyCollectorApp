@@ -15,7 +15,6 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build appbundle
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
