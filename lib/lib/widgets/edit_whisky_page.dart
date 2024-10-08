@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:whisky_collector/data/whisky.dart';
 
 class EditWhiskyPage extends StatefulWidget {
   final Whisky whisky;
-  final Future<String?> Function(File) saveImage; // Funktion zum Speichern des Bildes
-  final Function(Whisky) updateWhisky; // Funktion zum Aktualisieren des Whiskys
+  final Future<String?> Function(File) saveImage;
+  final Function(Whisky) updateWhisky;
 
   const EditWhiskyPage({
     Key? key,
@@ -30,22 +31,26 @@ class _EditWhiskyPageState extends State<EditWhiskyPage> {
   late TextEditingController _alcoholContentController;
   late TextEditingController _regionController;
 
-  File? _image; // Variable für das Bild
-  final ImagePicker _picker = ImagePicker(); // ImagePicker-Instanz
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
-    _distilleryController = TextEditingController(text: widget.whisky.distillery);
+    _distilleryController =
+        TextEditingController(text: widget.whisky.distillery);
     _ageController = TextEditingController(text: widget.whisky.age.toString());
-    _priceController = TextEditingController(text: widget.whisky.price.toString());
+    _priceController =
+        TextEditingController(text: widget.whisky.price.toString());
     _typeController = TextEditingController(text: widget.whisky.type ?? '');
     _aromaController = TextEditingController(text: widget.whisky.aroma ?? '');
     _tasteController = TextEditingController(text: widget.whisky.taste ?? '');
     _finishController = TextEditingController(text: widget.whisky.finish ?? '');
-    _alcoholContentController = TextEditingController(text: widget.whisky.alcoholContent?.toString() ?? '');
+    _alcoholContentController = TextEditingController(
+        text: widget.whisky.alcoholContent?.toString() ?? '');
     _regionController = TextEditingController(text: widget.whisky.region ?? '');
-    _image = widget.whisky.imagePath != null ? File(widget.whisky.imagePath!) : null;
+    _image =
+        widget.whisky.imagePath != null ? File(widget.whisky.imagePath!) : null;
   }
 
   Future<void> _pickImage(ImageSource source) async {
@@ -54,9 +59,56 @@ class _EditWhiskyPageState extends State<EditWhiskyPage> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
       } else {
-        debugPrint('Kein Bild ausgewählt.');
+        Fluttertoast.showToast(msg: 'Kein Bild ausgewählt.');
       }
     });
+  }
+
+  void _validateAndSave() async {
+    if (_distilleryController.text.isEmpty) {
+      Fluttertoast.showToast(msg: 'Bitte eine Destille eingeben.');
+      return;
+    }
+    if (_ageController.text.isEmpty ||
+        int.tryParse(_ageController.text) == null) {
+      Fluttertoast.showToast(msg: 'Bitte ein gültiges Alter eingeben.');
+      return;
+    }
+    if (_priceController.text.isEmpty ||
+        double.tryParse(_priceController.text) == null) {
+      Fluttertoast.showToast(msg: 'Bitte einen gültigen Preis eingeben.');
+      return;
+    }
+    if (_alcoholContentController.text.isNotEmpty &&
+        double.tryParse(_alcoholContentController.text) == null) {
+      Fluttertoast.showToast(
+          msg: 'Bitte einen gültigen Alkoholgehalt eingeben.');
+      return;
+    }
+
+    String? imagePath;
+    if (_image != null) {
+      imagePath = await widget.saveImage(_image!);
+    }
+
+    final updatedWhisky = Whisky(
+      distillery: _distilleryController.text,
+      age: int.parse(_ageController.text),
+      price: double.parse(_priceController.text),
+      imagePath: imagePath ?? widget.whisky.imagePath,
+      type: _typeController.text,
+      aroma: _aromaController.text,
+      taste: _tasteController.text,
+      finish: _finishController.text,
+      flavorProfiles: widget.whisky.flavorProfiles,
+      alcoholContent: double.tryParse(_alcoholContentController.text),
+      region: _regionController.text,
+      rating: widget.whisky.rating,
+      notes: widget.whisky.notes,
+    );
+
+    widget.updateWhisky(updatedWhisky);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -131,9 +183,9 @@ class _EditWhiskyPageState extends State<EditWhiskyPage> {
               _image == null
                   ? const Text('Kein Bild ausgewählt.')
                   : Image.file(
-                _image!,
-                height: 150,
-              ),
+                      _image!,
+                      height: 150,
+                    ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -150,33 +202,7 @@ class _EditWhiskyPageState extends State<EditWhiskyPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () async {
-                  String? imagePath;
-                  if (_image != null) {
-                    imagePath = await widget.saveImage(_image!); // Bild speichern
-                  }
-
-                  // Whisky-Objekt mit neuen Daten aktualisieren
-                  final updatedWhisky = Whisky(
-                    distillery: _distilleryController.text,
-                    age: int.parse(_ageController.text),
-                    price: double.parse(_priceController.text),
-                    imagePath: imagePath ?? widget.whisky.imagePath,
-                    type: _typeController.text,
-                    aroma: _aromaController.text,
-                    taste: _tasteController.text,
-                    finish: _finishController.text,
-                    flavorProfiles: widget.whisky.flavorProfiles, // Flavor Profiles bleiben unverändert
-                    alcoholContent: double.tryParse(_alcoholContentController.text),
-                    region: _regionController.text,
-                    rating: widget.whisky.rating, // Rating bleibt unverändert
-                    notes: widget.whisky.notes, // Notes bleiben unverändert
-                  );
-
-                  // Aktualisiere den Whisky und navigiere zurück
-                  widget.updateWhisky(updatedWhisky);
-                  Navigator.of(context).pop();
-                },
+                onPressed: _validateAndSave,
                 child: const Text('Speichern'),
               ),
             ],
