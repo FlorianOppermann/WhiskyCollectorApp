@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddWhiskyPopup extends StatefulWidget {
   final TextEditingController destilleController;
   final TextEditingController ageController;
   final TextEditingController priceController;
-  final Future<String?> Function(File) saveImage; // Funktion zum Speichern des Bildes
-  final Function(String?) addWhisky; // Funktion zum Hinzufügen des Whiskys
+  final Future<String?> Function(File) saveImage;
+  final Function(String?) addWhisky;
 
   const AddWhiskyPopup({
     Key? key,
@@ -23,8 +24,8 @@ class AddWhiskyPopup extends StatefulWidget {
 }
 
 class _AddWhiskyPopupState extends State<AddWhiskyPopup> {
-  File? _image; // Variable für das Bild
-  final ImagePicker _picker = ImagePicker(); // ImagePicker-Instanz
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
@@ -32,9 +33,38 @@ class _AddWhiskyPopupState extends State<AddWhiskyPopup> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
       } else {
-        debugPrint('Kein Bild ausgewählt.');
+        Fluttertoast.showToast(msg: 'Kein Bild ausgewählt.');
       }
     });
+  }
+
+  void _validateAndSave() async {
+    // Überprüfe, ob alle erforderlichen Felder ausgefüllt sind
+    if (widget.destilleController.text.isEmpty) {
+      Fluttertoast.showToast(msg: 'Bitte eine Destille eingeben.');
+      return;
+    }
+    if (widget.ageController.text.isEmpty ||
+        int.tryParse(widget.ageController.text) == null) {
+      Fluttertoast.showToast(msg: 'Bitte ein gültiges Alter eingeben.');
+      return;
+    }
+    if (widget.priceController.text.isEmpty ||
+        double.tryParse(widget.priceController.text) == null) {
+      Fluttertoast.showToast(msg: 'Bitte einen gültigen Preis eingeben.');
+      return;
+    }
+    if (_image == null) {
+      Fluttertoast.showToast(msg: 'Bitte ein Bild auswählen.');
+      return;
+    }
+
+    // Wenn alle Eingaben korrekt sind, speichere das Bild und füge den Whisky hinzu
+    String? imagePath = await widget.saveImage(_image!);
+    widget.addWhisky(imagePath);
+
+    // Popup schließen
+    Navigator.of(context).pop();
   }
 
   @override
@@ -67,9 +97,9 @@ class _AddWhiskyPopupState extends State<AddWhiskyPopup> {
             _image == null
                 ? const Text('Kein Bild ausgewählt.')
                 : Image.file(
-              _image!,
-              height: 150,
-            ),
+                    _image!,
+                    height: 150,
+                  ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -96,19 +126,7 @@ class _AddWhiskyPopupState extends State<AddWhiskyPopup> {
         ),
         TextButton(
           child: const Text('Speichern'),
-          onPressed: () async {
-            // Wenn ein Bild vorhanden ist, speichere es lokal und hole den Pfad
-            String? imagePath;
-            if (_image != null) {
-              imagePath = await widget.saveImage(_image!); // Bild speichern und Pfad holen
-            }
-
-            // Füge den Whisky mit dem Bildpfad hinzu
-            widget.addWhisky(imagePath);
-
-            // Schließe das Popup
-            Navigator.of(context).pop();
-          },
+          onPressed: _validateAndSave,
         ),
       ],
     );

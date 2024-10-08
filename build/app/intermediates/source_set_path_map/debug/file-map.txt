@@ -26,6 +26,7 @@ de.florianoppermann.whiskycollector.app-packageDebugResources-24 C:\Users\flori\
 de.florianoppermann.whiskycollector.app-packageDebugResources-25 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\app\intermediates\incremental\debug\packageDebugResources\stripped.dir
 de.florianoppermann.whiskycollector.app-merged_res-26 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\app\intermediates\merged_res\debug
 de.florianoppermann.whiskycollector.app-packaged_res-27 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\debug
-de.florianoppermann.whiskycollector.app-packaged_res-28 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\image_picker_android\intermediates\packaged_res\debug
-de.florianoppermann.whiskycollector.app-packaged_res-29 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\path_provider_android\intermediates\packaged_res\debug
-de.florianoppermann.whiskycollector.app-packaged_res-30 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\permission_handler_android\intermediates\packaged_res\debug
+de.florianoppermann.whiskycollector.app-packaged_res-28 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\fluttertoast\intermediates\packaged_res\debug
+de.florianoppermann.whiskycollector.app-packaged_res-29 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\image_picker_android\intermediates\packaged_res\debug
+de.florianoppermann.whiskycollector.app-packaged_res-30 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\path_provider_android\intermediates\packaged_res\debug
+de.florianoppermann.whiskycollector.app-packaged_res-31 C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\permission_handler_android\intermediates\packaged_res\debug

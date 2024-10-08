@@ -30,6 +30,7 @@ INJECTED from C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\android\app\src\
 INJECTED from C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 MERGED from [:image_picker_android] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-34:12
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:fluttertoast] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\fluttertoast\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:path_provider_android] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:permission_handler_android] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\permission_handler_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\flori\.gradle\caches\transforms-3\a49cd171355a6a39687e69f028c8bcbc\transformed\fragment-1.7.1\AndroidManifest.xml:2:1-7:12
@@ -102,6 +103,8 @@ MERGED from [:image_picker_android] C:\Users\flori\Desktop\Flutter\WhiskyCollect
 MERGED from [:image_picker_android] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-44
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\fluttertoast\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\fluttertoast\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider_android] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider_android] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:permission_handler_android] C:\Users\flori\Desktop\Flutter\WhiskyCollectorApp\build\permission_handler_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
